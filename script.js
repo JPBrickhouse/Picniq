@@ -83,37 +83,37 @@ async function yelpAJAXcall() {
     var yelpRestaurantQueryURL = queryURLs[0];
     var yelpParksQueryURL = queryURLs[1];
 
-    // // RESTAURANT CALL
-    // var settingsRestaurants = {
-    //     "async": true,
-    //     "crossDomain": true,
-    //     "url": yelpRestaurantQueryURL,
-    //     "method": "GET",
-    //     "headers": {
-    //         "x-rapidapi-host": "yelp-com.p.rapidapi.com",
-    //         // The API key is below
-    //         // We can "swap" in a new key closer to submission
-    //         // That way we have our 100 uses still available for class demos and stuff
-    //         "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
-    //     }
-    // }
+    // RESTAURANT CALL
+    var settingsRestaurants = {
+        "async": true,
+        "crossDomain": true,
+        "url": yelpRestaurantQueryURL,
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "yelp-com.p.rapidapi.com",
+            // The API key is below
+            // We can "swap" in a new key closer to submission
+            // That way we have our 100 uses still available for class demos and stuff
+            "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
+        }
+    }
 
 
 
-    // // PARKS CALL
-    // var settingsParks = {
-    //     "async": true,
-    //     "crossDomain": true,
-    //     "url": yelpParksQueryURL,
-    //     "method": "GET",
-    //     "headers": {
-    //         "x-rapidapi-host": "yelp-com.p.rapidapi.com",
-    //         // The API key is below
-    //         // We can "swap" in a new key closer to submission
-    //         // That way we have our 100 uses still available for class demos and stuff
-    //         "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
-    //     }
-    // }
+    // PARKS CALL
+    var settingsParks = {
+        "async": true,
+        "crossDomain": true,
+        "url": yelpParksQueryURL,
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "yelp-com.p.rapidapi.com",
+            // The API key is below
+            // We can "swap" in a new key closer to submission
+            // That way we have our 100 uses still available for class demos and stuff
+            "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
+        }
+    }
 
 
 
