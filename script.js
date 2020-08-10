@@ -9,8 +9,8 @@ function buildGeoCodeQueryURL() {
 
     // NEED an INPUT parameter on the HTML document corresponding to the ID of addressInput
     // This should be the search button value (the address the user searches)
-    
-    queryParameters.q = "300 East Randolph"
+
+    queryParameters.q = "300 East Randolph, Chicago"
     // queryParameters.q = $("#addressInput").val().trim()
 
     queryParameters.no_annotations = 1;
@@ -70,8 +70,6 @@ async function buildYelpQueryURL() {
 // Build the Yelp query URL
 // Return the Yelp query URL
 
-buildYelpQueryURL();
-
 
 // ---------------------------------------
 // << Function making an AJAX call to Yelp >> 
@@ -84,45 +82,58 @@ async function yelpAJAXcall() {
     var yelpParksQueryURL = queryURLs[1];
 
     // // RESTAURANT CALL
-    // var settingsRestaurants = {
-    //     "async": true,
-    //     "crossDomain": true,
-    //     "url": yelpRestaurantQueryURL,
-    //     "method": "GET",
-    //     "headers": {
-    //         "x-rapidapi-host": "yelp-com.p.rapidapi.com",
-    //         // The API key is below
-    //         // We can "swap" in a new key closer to submission
-    //         // That way we have our 100 uses still available for class demos and stuff
-    //         "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
-    //     }
-    // }
-
-
+    var settingsRestaurants = {
+        "async": true,
+        "crossDomain": true,
+        "url": yelpRestaurantQueryURL,
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "yelp-com.p.rapidapi.com",
+            // The API key is below
+            // We can "swap" in a new key closer to submission
+            // That way we have our 100 uses still available for class demos and stuff
+            "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
+        }
+    }
 
     // // PARKS CALL
-    // var settingsParks = {
-    //     "async": true,
-    //     "crossDomain": true,
-    //     "url": yelpParksQueryURL,
-    //     "method": "GET",
-    //     "headers": {
-    //         "x-rapidapi-host": "yelp-com.p.rapidapi.com",
-    //         // The API key is below
-    //         // We can "swap" in a new key closer to submission
-    //         // That way we have our 100 uses still available for class demos and stuff
-    //         "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
-    //     }
-    // }
+    var settingsParks = {
+        "async": true,
+        "crossDomain": true,
+        "url": yelpParksQueryURL,
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "yelp-com.p.rapidapi.com",
+            // The API key is below
+            // We can "swap" in a new key closer to submission
+            // That way we have our 100 uses still available for class demos and stuff
+            "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
+        }
+    }
 
 
+    // DECLARE GLOBAL VARIABLES OUTSIDE THIS FUNCTION?
 
-    // (Maybe this is on a button click? Once we click the search button?)
-    // Get the return from the Yelp Query URL builder
-    // Make the AJAX call
-    // Return the data from Yelp
+    $.ajax(settingsRestaurants).done(function (response) {
+        console.log(response);
+        // SET THE RESPONSES DIRECTLY HERE
+        // OR, RETURN THEM AND PARSE THEM IN A SEPARATE FUNCTION
+    });
+
+    $.ajax(settingsParks).done(function (response) {
+        console.log(response);
+        // SET THE RESPONSES DIRECTLY HERE
+        // OR, RETURN THEM AND PARSE THEM IN A SEPARATE FUNCTION
+    });
 
 }
+
+// (Maybe this is on a button click? Once we click the search button?)
+// Get the return from the Yelp Query URL builder
+// Make the AJAX call
+// Return the data from Yelp
+yelpAJAXcall();
+
 
 // ---------------------------------------
 // << Function to parse through all the data >>
