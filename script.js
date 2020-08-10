@@ -9,8 +9,8 @@ function buildGeoCodeQueryURL() {
 
     // NEED an INPUT parameter on the HTML document corresponding to the ID of addressInput
     // This should be the search button value (the address the user searches)
-    
-    queryParameters.q = "300 East Randolph"
+
+    queryParameters.q = "300 East Randolph, Chicago"
     // queryParameters.q = $("#addressInput").val().trim()
 
     queryParameters.no_annotations = 1;
@@ -70,8 +70,6 @@ async function buildYelpQueryURL() {
 // Build the Yelp query URL
 // Return the Yelp query URL
 
-buildYelpQueryURL();
-
 
 // ---------------------------------------
 // << Function making an AJAX call to Yelp >> 
@@ -84,6 +82,7 @@ async function yelpAJAXcall() {
     var yelpParksQueryURL = queryURLs[1];
 
     // RESTAURANT CALL
+    // // RESTAURANT CALL
     var settingsRestaurants = {
         "async": true,
         "crossDomain": true,
@@ -101,6 +100,7 @@ async function yelpAJAXcall() {
 
 
     // PARKS CALL
+    // // PARKS CALL
     var settingsParks = {
         "async": true,
         "crossDomain": true,
@@ -121,8 +121,28 @@ async function yelpAJAXcall() {
     // Get the return from the Yelp Query URL builder
     // Make the AJAX call
     // Return the data from Yelp
+    // DECLARE GLOBAL VARIABLES OUTSIDE THIS FUNCTION?
+
+    $.ajax(settingsRestaurants).done(function (response) {
+        console.log(response);
+        // SET THE RESPONSES DIRECTLY HERE
+        // OR, RETURN THEM AND PARSE THEM IN A SEPARATE FUNCTION
+    });
+
+    $.ajax(settingsParks).done(function (response) {
+        console.log(response);
+        // SET THE RESPONSES DIRECTLY HERE
+        // OR, RETURN THEM AND PARSE THEM IN A SEPARATE FUNCTION
+    });
 
 }
+
+// (Maybe this is on a button click? Once we click the search button?)
+// Get the return from the Yelp Query URL builder
+// Make the AJAX call
+// Return the data from Yelp
+yelpAJAXcall();
+
 
 // ---------------------------------------
 // << Function to parse through all the data >>
