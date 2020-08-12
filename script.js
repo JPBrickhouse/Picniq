@@ -81,7 +81,6 @@ async function yelpAJAXcall() {
     var yelpParksQueryURL = queryURLs[1];
 
     // RESTAURANT CALL
-    // // RESTAURANT CALL
     var settingsRestaurants = {
         "async": true,
         "crossDomain": true,
@@ -89,14 +88,11 @@ async function yelpAJAXcall() {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "yelp-com.p.rapidapi.com",
-            // "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
+            // "x-rapidapi-key": "8d77924a53mshdbbbe2b4fb69b1ep172438jsn0a5abec1324a"
         }
     }
 
-
-
     // PARKS CALL
-    // // PARKS CALL
     var settingsParks = {
         "async": true,
         "crossDomain": true,
@@ -104,69 +100,65 @@ async function yelpAJAXcall() {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "yelp-com.p.rapidapi.com",
-            // "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
+            // "x-rapidapi-key": "8d77924a53mshdbbbe2b4fb69b1ep172438jsn0a5abec1324a"
         }
     }
 
-
-
-    // (Maybe this is on a button click? Once we click the search button?)
-    // Get the return from the Yelp Query URL builder
-    // Make the AJAX call
-    // Return the data from Yelp
-    // DECLARE GLOBAL VARIABLES OUTSIDE THIS FUNCTION?
-
+    // RESTAURANT CALL
     $.ajax(settingsRestaurants).done(function(response) {
         console.log(response);
-        // SET THE RESPONSES DIRECTLY HERE
-        // OR, RETURN THEM AND PARSE THEM IN A SEPARATE FUNCTION
-
-
-
-        // ID = "#restaurantsDiv"
 
         for (var i=0; i < 5; i++) {
         
             // RESTAURANT NAME
-            var businessName = objectWithData.business_search_results[i].business.name
-            console.log(businessName)
+            var businessName = response.business_search_results[i].business.name
             
             // ADDRESS
-            var businessAddress = objectWithData.business_search_results[i].business.addresses.primary_language.long_form
-            console.log(businessAddress);
+            var businessAddress = response.business_search_results[i].business.addresses.primary_language.long_form
             
             // PHONE NUMBER
-            var phoneNumber = objectWithData.business_search_results[i].business.phone
-            console.log(phoneNumber);
+            var businessPhone = response.business_search_results[i].business.phone
             
             // TAKEOUT?
-            var takeoutLabel = objectWithData.business_search_results[i].business.localized_attributes[2].label
-            var takeoutValue = objectWithData.business_search_results[i].business.localized_attributes[2].value
-            console.log(takeoutLabel)
-            console.log(takeoutValue)
+            var takeoutLabel = response.business_search_results[i].business.localized_attributes[2].label
+            var takeoutValue = response.business_search_results[i].business.localized_attributes[2].value
             
             // WEBSITE URL
-            var businessWebsite = objectWithData.business_search_results[i].business.url
-            console.log(businessWebsite)
+            var businessURL = response.business_search_results[i].business.url
+
+            // PHOTO
+
+            // BUILDING THE DIV
+            var individualRestaurantDiv = $("<div>");
+            var restaurantName = $("<h2>").text("Restaurant: " + businessName);
+            var restaurantAdress = $("<p>").text("Addres: " + businessAddress);
+            var restaurantPhone = $("<p>").text("Phone: " + businessPhone);
+            var takeOutText = $("<p>").text(takeoutLabel + "? " + takeoutValue);
+            var restaurantURL = $("<a>").attr("href",businessURL);
+            restaurantURL.text(restaurantName);
+            restaurantURL.attr("target","_blank");
+            // PHOTO
+            individualRestaurantDiv.append(restaurantName,restaurantAdress,restaurantPhone,takeOutText,restaurantURL);
+
+            // APPENDING THE DIV
+            $("#restaurantsDiv").append(individualRestaurantDiv);
         }
     });
 
+    // PARKS CALL
     $.ajax(settingsParks).done(function(response) {
-
         console.log(response);
+
         for (var i = 0; i < 5; i++) {
 
             // PARK NAME
             var businessName = response.business_search_results[i].business.name
-            console.log(businessName)
 
             // ADDRESS
             var businessAddress = response.business_search_results[i].business.addresses.primary_language.long_form
-            console.log(businessAddress);
 
             // URL
             var businessURL = response.business_search_results[i].url;
-            console.log(businessURL);
 
             // PHOTO
             var businessPhoto = response.business_search_results[i].business.photos[0].url_prefix + "o.jpg"
@@ -182,6 +174,7 @@ async function yelpAJAXcall() {
 
             individualParkDiv.append(parkName, parkAddress,parkURL,parkPhoto);
             
+            // APPENDING THE DIV
             $("#parksDiv").append(individualParkDiv);
         }
     });
