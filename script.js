@@ -89,10 +89,7 @@ async function yelpAJAXcall() {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "yelp-com.p.rapidapi.com",
-            // The API key is below
-            // We can "swap" in a new key closer to submission
-            // That way we have our 100 uses still available for class demos and stuff
-            "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
+            // "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
         }
     }
 
@@ -107,10 +104,7 @@ async function yelpAJAXcall() {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "yelp-com.p.rapidapi.com",
-            // The API key is below
-            // We can "swap" in a new key closer to submission
-            // That way we have our 100 uses still available for class demos and stuff
-            "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
+            // "x-rapidapi-key": "d3da491a18mshb8758c6480ff147p103ddcjsnbf8dfb0cb906"
         }
     }
 
@@ -126,6 +120,11 @@ async function yelpAJAXcall() {
         console.log(response);
         // SET THE RESPONSES DIRECTLY HERE
         // OR, RETURN THEM AND PARSE THEM IN A SEPARATE FUNCTION
+
+
+
+        // ID = "#restaurantsDiv"
+
         for (var i=0; i < 5; i++) {
         
             // RESTAURANT NAME
@@ -165,7 +164,25 @@ async function yelpAJAXcall() {
             var businessAddress = response.business_search_results[i].business.addresses.primary_language.long_form
             console.log(businessAddress);
 
+            // URL
+            var businessURL = response.business_search_results[i].url;
+            console.log(businessURL);
 
+            // PHOTO
+            var businessPhoto = response.business_search_results[i].business.photos[0].url_prefix + "o.jpg"
+
+            // BUILDING THE DIV
+            var individualParkDiv = $("<div>");
+            var parkName = $("<h2>").text("Park: " + businessName);
+            var parkAddress = $("<p>").text("Addres: " + businessAddress);
+            var parkURL = $("<a>").attr("href",businessURL);
+            parkURL.text(businessName);
+            parkURL.attr("target","_blank");
+            var parkPhoto = $("<img>").attr("src",businessPhoto);
+
+            individualParkDiv.append(parkName, parkAddress,parkURL,parkPhoto);
+            
+            $("#parksDiv").append(individualParkDiv);
         }
     });
 
@@ -175,7 +192,13 @@ async function yelpAJAXcall() {
 // Get the return from the Yelp Query URL builder
 // Make the AJAX call
 // Return the data from Yelp
+
+
+// ID = "submitBtn"
+// Add an event listener for the click to run this function
 yelpAJAXcall();
+
+
 
 
 // ---------------------------------------
