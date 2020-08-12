@@ -80,6 +80,7 @@ async function yelpAJAXcall() {
     var yelpRestaurantQueryURL = queryURLs[0];
     var yelpParksQueryURL = queryURLs[1];
 
+    // RESTAURANT CALL
     // // RESTAURANT CALL
     var settingsRestaurants = {
         "async": true,
@@ -92,6 +93,9 @@ async function yelpAJAXcall() {
         }
     }
 
+
+
+    // PARKS CALL
     // // PARKS CALL
     var settingsParks = {
         "async": true,
@@ -105,6 +109,11 @@ async function yelpAJAXcall() {
     }
 
 
+
+    // (Maybe this is on a button click? Once we click the search button?)
+    // Get the return from the Yelp Query URL builder
+    // Make the AJAX call
+    // Return the data from Yelp
     // DECLARE GLOBAL VARIABLES OUTSIDE THIS FUNCTION?
 
     $.ajax(settingsRestaurants).done(function(response) {
@@ -113,8 +122,33 @@ async function yelpAJAXcall() {
         // OR, RETURN THEM AND PARSE THEM IN A SEPARATE FUNCTION
 
 
+
         // ID = "#restaurantsDiv"
 
+        for (var i=0; i < 5; i++) {
+        
+            // RESTAURANT NAME
+            var businessName = objectWithData.business_search_results[i].business.name
+            console.log(businessName)
+            
+            // ADDRESS
+            var businessAddress = objectWithData.business_search_results[i].business.addresses.primary_language.long_form
+            console.log(businessAddress);
+            
+            // PHONE NUMBER
+            var phoneNumber = objectWithData.business_search_results[i].business.phone
+            console.log(phoneNumber);
+            
+            // TAKEOUT?
+            var takeoutLabel = objectWithData.business_search_results[i].business.localized_attributes[2].label
+            var takeoutValue = objectWithData.business_search_results[i].business.localized_attributes[2].value
+            console.log(takeoutLabel)
+            console.log(takeoutValue)
+            
+            // WEBSITE URL
+            var businessWebsite = objectWithData.business_search_results[i].business.url
+            console.log(businessWebsite)
+        }
     });
 
     $.ajax(settingsParks).done(function(response) {
