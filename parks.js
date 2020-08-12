@@ -80,7 +80,6 @@ async function yelpAJAXcall() {
     var yelpRestaurantQueryURL = queryURLs[0];
     var yelpParksQueryURL = queryURLs[1];
 
-    // RESTAURANT CALL
     // // RESTAURANT CALL
     var settingsRestaurants = {
         "async": true,
@@ -96,9 +95,6 @@ async function yelpAJAXcall() {
         }
     }
 
-
-
-    // PARKS CALL
     // // PARKS CALL
     var settingsParks = {
         "async": true,
@@ -115,11 +111,6 @@ async function yelpAJAXcall() {
     }
 
 
-
-    // (Maybe this is on a button click? Once we click the search button?)
-    // Get the return from the Yelp Query URL builder
-    // Make the AJAX call
-    // Return the data from Yelp
     // DECLARE GLOBAL VARIABLES OUTSIDE THIS FUNCTION?
 
     $.ajax(settingsRestaurants).done(function(response) {
@@ -129,7 +120,6 @@ async function yelpAJAXcall() {
     });
 
     $.ajax(settingsParks).done(function(response) {
-
         console.log(response);
         for (var i = 0; i < 5; i++) {
 
@@ -143,6 +133,11 @@ async function yelpAJAXcall() {
 
 
         }
+
+
+
+        // SET THE RESPONSES DIRECTLY HERE
+        // OR, RETURN THEM AND PARSE THEM IN A SEPARATE FUNCTION
     });
 
 }
