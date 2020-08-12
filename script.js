@@ -9,8 +9,8 @@ function buildGeoCodeQueryURL() {
     // NEED an INPUT parameter on the HTML document corresponding to the ID of addressInput
     // This should be the search button value (the address the user searches)
 
-    queryParameters.q = "300 East Randolph, Chicago"
-        // queryParameters.q = $("#addressInput").val().trim()
+    // queryParameters.q = "300 East Randolph, Chicago"
+    queryParameters.q = $("#addressInput").val().trim()
 
     queryParameters.no_annotations = 1;
 
@@ -31,7 +31,7 @@ function geocoding() {
     return ($.ajax({
         url: queryURLgeocoding,
         method: "GET"
-    }).then(function(geocodeData) {
+    }).then(function (geocodeData) {
         var latitude = geocodeData.results[0].geometry.lat;
         var longitude = geocodeData.results[0].geometry.lng;
         coordinates = [latitude, longitude];
@@ -74,7 +74,9 @@ async function buildYelpQueryURL() {
 // << Function making an AJAX call to Yelp >> 
 //
 
-async function yelpAJAXcall() {
+async function yelpAJAXcall(event) {
+
+    event.preventDefault();
 
     var queryURLs = await buildYelpQueryURL();
     var yelpRestaurantQueryURL = queryURLs[0];
@@ -105,24 +107,24 @@ async function yelpAJAXcall() {
     }
 
     // RESTAURANT CALL
-    $.ajax(settingsRestaurants).done(function(response) {
+    $.ajax(settingsRestaurants).done(function (response) {
         console.log(response);
 
-        for (var i=0; i < 5; i++) {
-        
+        for (var i = 0; i < 5; i++) {
+
             // RESTAURANT NAME
             var businessName = response.business_search_results[i].business.name
-            
+
             // ADDRESS
             var businessAddress = response.business_search_results[i].business.addresses.primary_language.long_form
-            
+
             // PHONE NUMBER
             var businessPhone = response.business_search_results[i].business.phone
-            
+
             // TAKEOUT?
             var takeoutLabel = response.business_search_results[i].business.localized_attributes[2].label
             var takeoutValue = response.business_search_results[i].business.localized_attributes[2].value
-            
+
             // WEBSITE URL
             var businessURL = response.business_search_results[i].business.url
 
@@ -134,11 +136,11 @@ async function yelpAJAXcall() {
             var restaurantAdress = $("<p>").text("Addres: " + businessAddress);
             var restaurantPhone = $("<p>").text("Phone: " + businessPhone);
             var takeOutText = $("<p>").text(takeoutLabel + "? " + takeoutValue);
-            var restaurantURL = $("<a>").attr("href",businessURL);
+            var restaurantURL = $("<a>").attr("href", businessURL);
             restaurantURL.text(restaurantName);
-            restaurantURL.attr("target","_blank");
+            restaurantURL.attr("target", "_blank");
             // PHOTO
-            individualRestaurantDiv.append(restaurantName,restaurantAdress,restaurantPhone,takeOutText,restaurantURL);
+            individualRestaurantDiv.append(restaurantName, restaurantAdress, restaurantPhone, takeOutText, restaurantURL);
 
             // APPENDING THE DIV
             $("#restaurantsDiv").append(individualRestaurantDiv);
@@ -146,7 +148,7 @@ async function yelpAJAXcall() {
     });
 
     // PARKS CALL
-    $.ajax(settingsParks).done(function(response) {
+    $.ajax(settingsParks).done(function (response) {
         console.log(response);
 
         for (var i = 0; i < 5; i++) {
@@ -167,13 +169,13 @@ async function yelpAJAXcall() {
             var individualParkDiv = $("<div>");
             var parkName = $("<h2>").text("Park: " + businessName);
             var parkAddress = $("<p>").text("Addres: " + businessAddress);
-            var parkURL = $("<a>").attr("href",businessURL);
+            var parkURL = $("<a>").attr("href", businessURL);
             parkURL.text(businessName);
-            parkURL.attr("target","_blank");
-            var parkPhoto = $("<img>").attr("src",businessPhoto);
+            parkURL.attr("target", "_blank");
+            var parkPhoto = $("<img>").attr("src", businessPhoto);
 
-            individualParkDiv.append(parkName, parkAddress,parkURL,parkPhoto);
-            
+            individualParkDiv.append(parkName, parkAddress, parkURL, parkPhoto);
+
             // APPENDING THE DIV
             $("#parksDiv").append(individualParkDiv);
         }
@@ -189,7 +191,9 @@ async function yelpAJAXcall() {
 
 // ID = "submitBtn"
 // Add an event listener for the click to run this function
-yelpAJAXcall();
+$("#submitBtn").on("click",yelpAJAXcall);
+
+
 
 
 
