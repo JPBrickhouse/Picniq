@@ -120,7 +120,6 @@ async function yelpAJAXcall() {
     });
 
     $.ajax(settingsParks).done(function(response) {
-
         console.log(response);
         for (var i = 0; i < 5; i++) {
 
@@ -134,6 +133,11 @@ async function yelpAJAXcall() {
 
 
         }
+
+
+
+        // SET THE RESPONSES DIRECTLY HERE
+        // OR, RETURN THEM AND PARSE THEM IN A SEPARATE FUNCTION
     });
 
 }
