@@ -33,7 +33,7 @@ function geocoding() {
     }).then(function (geocodeData) {
         var latitude = geocodeData.results[0].geometry.lat;
         var longitude = geocodeData.results[0].geometry.lng;
-        coordinates = [latitude, longitude];
+        var coordinates = [latitude, longitude];
         return coordinates;
     }))
 }
@@ -44,8 +44,36 @@ function geocoding() {
 // 
 async function buildFourSquareQueryURL() {
 
-    // Awaiting the return from geocoding() prior to continuing the rest of the buildFourSquareQueryURL function
-    var coordinates = await geocoding();
+    // Initializing an empty array to story the coordinates
+    var coordinates = [];
+
+    // Looking up the data attribute of the element with the ID of "eitherORSearch"
+    var eitherORsearch = document.getElementById("eitherORsearch");
+    var searchTYPE = eitherORsearch.getAttribute("data-searchTYPE");
+
+    // Run a series of if statements, based on the data attribute
+    
+    // If an addressSearch was performed, run the geocoding function and get those coordinates
+    if (searchTYPE === "AddressSearch") {
+        // Awaiting the return from geocoding() prior to continuing the rest of the buildFourSquareQueryURL function
+        var coordinatesGeocoding = await geocoding();
+        // Use the coordinatesGeocoding as the coordinates within the buildFourSquareQueryURL function
+        coordinates = coordinatesGeocoding;
+    }
+    // If a search was performed based on currentLocation...
+    if (searchTYPE === "currentLocationSearch") {
+        // If the currentLocationCoordinates are set to [0,0], it is because...
+        // the user did not allow for location services
+        if (currentLocationCoordinates === [0,0]) {
+            return;
+        }
+        // Else, use the currentLocationCoordinates as the coordinates within the buildFourSquareQueryURL function
+        else {
+            coordinates = currentLocationCoordinates;
+        }
+    }
+
+    // Getting the latitude and longitude individually from the coordinates
     var latitude = coordinates[0];
     var longitude = coordinates[1];
 
@@ -183,13 +211,24 @@ async function fourSquareAJAXcall(event) {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            // Code for handling errors
+            // Code for handling errors in the Restaurants AJAX call
             console.log(jqXHR);
             console.log(textStatus);
             console.log(errorThrown);
 
-            var retrySearch = $("<p>").text("Please retry search")
-            $("#restaurantsDiv").append(retrySearch);
+            // Looking up the data attribute of the element with the ID of "eitherORSearch"
+            var eitherORsearch = document.getElementById("eitherORsearch");
+            var searchTYPE = eitherORsearch.getAttribute("data-searchTYPE");
+
+            // Running if statements to determine the type of error message to display
+            if (searchTYPE === "AddressSearch") {
+                var retrySearch = $("<p>").text("Please retry address search")
+                $("#restaurantsDiv").append(retrySearch);
+            }
+            if (searchTYPE === "currentLocationSearch") {
+                var retrySearch = $("<p>").text("Please Refresh Page and Allow Location")
+                $("#restaurantsDiv").append(retrySearch);
+            }
         }
     })
 
@@ -247,18 +286,86 @@ async function fourSquareAJAXcall(event) {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            // Code for handling errors
+            // Code for handling errors in the AJAX calls
             console.log(jqXHR);
             console.log(textStatus);
             console.log(errorThrown);
 
-            var retrySearch = $("<p>").text("Please retry search")
-            $("#parksDiv").append(retrySearch);
+            // Looking up the data attribute of the element with the ID of "eitherORSearch"
+            var eitherORsearch = document.getElementById("eitherORsearch");
+            var searchTYPE = eitherORsearch.getAttribute("data-searchTYPE");
+
+            // Running if statements to determine the type of error message to display
+            if (searchTYPE === "AddressSearch") {
+                var retrySearch = $("<p>").text("Please retry address search")
+                $("#parksDiv").append(retrySearch);
+            }
+            if (searchTYPE === "currentLocationSearch") {
+                var retrySearch = $("<p>").text("Please Refresh Page and Allow Location")
+                $("#parksDiv").append(retrySearch);
+            }
         }
     });
 
 }
 
-// The submit button has an event listener
-// On click, it runs the fourSquareAJAXcall function
-$("#submitBtn").on("click", fourSquareAJAXcall);
+
+// ---------------------------------------
+// << Event listeners to run the fourSquareAJAXcall function! >> 
+//
+// The submitBtn button has an event listener
+$("#submitBtn").on("click", function (event) {
+    event.preventDefault();
+
+    // Setting the data attribute of data-searchTYPE
+    // This gets referenced within fourSquareAJAXcall
+    var eitherORsearch = document.getElementById("eitherORsearch");
+    eitherORsearch.setAttribute("data-searchTYPE", "AddressSearch")
+
+    // Running the fourSquareAJAXcall function
+    fourSquareAJAXcall(event)
+});
+
+// The locationBtn button has an event listener
+$("#locationBtn").on("click", function (event) {
+    event.preventDefault();
+
+    // Setting the data attribute of data-searchTYPE
+    // This gets referenced within fourSquareAJAXcall
+    var eitherORsearch = document.getElementById("eitherORsearch");
+    eitherORsearch.setAttribute("data-searchTYPE", "currentLocationSearch");
+
+    // Running the fourSquareAJAXcall function
+    fourSquareAJAXcall(event)
+});
+
+
+// ---------------------------------------
+// << Function that runs immediately whent the page opens >> 
+// If the user allows location services, it stores currentLocationCoordinates
+// If the user doesn't allow location services, they can still search by address
+// Location determination based on Mozilla documentation:
+// https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
+
+let currentLocationCoordinates = [0,0];
+function currentLocation() {
+    function success(pos) {
+        var crd = pos.coords;
+        console.log('Your current position is:');
+        console.log(`Latitude : ${crd.latitude}`);
+        console.log(`Longitude: ${crd.longitude}`);
+        console.log(`More or less ${crd.accuracy} meters.`);
+        currentLocationCoordinates = [crd.latitude, crd.longitude];
+    }
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`)
+        currentLocationCoordinates = [0,0];
+    }
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+    navigator.geolocation.getCurrentPosition(success, error, options);
+}
+currentLocation()
