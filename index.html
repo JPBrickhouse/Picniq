@@ -7,9 +7,12 @@
     <title>Project One</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-    <!-- Purecss Library -->
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
+
+  <!-- Purecss Library -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
     <!-- bootstrap stylesheet -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -42,32 +45,39 @@
                         <input type="Location" id="addressInput" placeholder="Enter Address">
                         <button type="submit" class="pure-button pure-button-primary" id="submitBtn">Picnic</button>
                         <br>
-                        <ul>
+
+                         <!-- Putting an ID and data-attribute here to reference in the javascript file -->
+                        <h2 id="eitherORsearch" data-searchTYPE="">OR...</h2>
+                        <br>
+                        <button type="submit" class="pure-button pure-button-primary" id="locationBtn">Search using your current location!</button>
+                        <br>
+                        <!-- <ul>
+
                             <label for="stacked-remember" class="pure-checkbox" id="distance">
             <input type="checkbox" id="stacked-remember"> Distance</label>
                             <label for="stacked-remember" class="pure-checkbox" id="foodPreference">
               <input type="checkbox" id="stacked-remember"> Food Preference</label>
                             <label for="stacked-remember" class="pure-checkbox" id="priceRange">
               <input type="checkbox" id="stacked-remember"> Price Range</label>
-                        </ul>
+
+                        </ul> -->
+
                     </fieldset>
                 </form>
             </div>
         </div>
     </div>
     <div class="pure-g">
-        <div class="pure-u-1 pure-u-md-1-2">
-            <h2>Restaurants Near You</h2>
-            <div class="l-box"></div>
-            <div id="restaurantsDiv"></div>
-            <!-- DIV WHERE THE RESTAURANT CONTENT GETS DUMPED -->
-        </div>
-        <div class="pure-u-1 pure-u-md-1-2">
-            <h2>Parks Near You</h2>
-            <div class="l-box"></div>
-            <div id="parksDiv"></div>
-            <!-- DIV WHERE THE PARKS CONTENT GETS DUMPED -->
-        </div>
+
+      <div class="pure-u-1 pure-u-md-1-2">
+        <h2>Restaurants Near You</h2>
+        <div class="l-box" id="restaurantsDiv"></div> <!-- DIV WHERE THE RESTAURANT CONTENT GETS DUMPED -->
+      </div>
+      <div class="pure-u-1 pure-u-md-1-2">
+        <h2>Parks Near You</h2>
+        <div class="l-box" id="parksDiv"></div> <!-- DIV WHERE THE PARKS CONTENT GETS DUMPED -->
+      </div>
+
     </div>
 
 
@@ -75,8 +85,16 @@
     <!-- Moment.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
+
     <!-- jQuery Library -->
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+  <!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
     <!-- Team Created Javascript File -->
     <script src='script.js'></script>

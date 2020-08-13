@@ -125,6 +125,9 @@ h2 {
     border-top: 0;
     border-right: 0;
 }
+.card {
+    margin-bottom: 1em;
+}
 
 
 /* -- TABLET (AND UP) MEDIA QUERIES --
@@ -144,22 +147,5 @@ h2 {
     }
     .home-menu ul {
         float: left;
-    }
-    /* We increase the height of the splash-container */
-    /*    .splash-container {
-        height: 500px;
-    }*/
-    /* We decrease the width of the .splash, since we have more width
-    to work with */
-    .splash {
-        width: 50%;
-        height: 50%;
-    }
-    .splash-head {
-        font-size: 250%;
-    }
-    /* We remove the border-separator assigned to .l-box-lrg */
-    .l-box-lrg {
-        border: none;
     }
 }

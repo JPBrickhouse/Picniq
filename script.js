@@ -146,73 +146,74 @@ async function fourSquareAJAXcall(event) {
                 maximumCountRestaurants = 10;
             }
 
-            // If no results were returned, display "No results found..."
-            if (lengthOfResponse === 0) {
-                var retrySearch = $("<p>").text("No results found for your search")
-                $("#restaurantsDiv").append(retrySearch);
-            }
-            // Else, continue...
-            else {
-                // Looping through the first 10 results, parsing the data, and displaying the data on the html page
-                for (var i = 0; i < maximumCountRestaurants; i++) {
-                    // Getting the restaurant name
-                    var restaurantName = data.response.groups[0].items[i].venue.name;
 
-                    // Getting the restaurant address
-                    var restaurantAddress = data.response.groups[0].items[i].venue.location.formattedAddress[0];
+            // Looping through the first 10 results, parsing the data, and displaying the data on the html page
+            for (var i = 0; i < maximumCountRestaurants; i++) {
+                // Getting the restaurant name
+                var restaurantName = data.response.groups[0].items[i].venue.name;
 
-                    // Running an if / else statment to confirm if the restaurant does delivery
-                    var doesDelivery = "";
-                    if (data.response.groups[0].items[i].venue.delivery != undefined) {
-                        doesDelivery = "Yes"
-                        var devliveryProvider = data.response.groups[0].items[i].venue.delivery.provider.name;
-                        var deliveryURL = data.response.groups[0].items[i].venue.delivery.url;
-                    }
-                    else {
-                        doesDelivery = "No"
-                    }
+                // Getting the restaurant address
+                var restaurantAddress = data.response.groups[0].items[i].venue.location.formattedAddress[0];
 
-                    // Getting the restaurant "genre"
-                    var restaurantGenre = data.response.groups[0].items[i].venue.categories[0].shortName;
+                // Running an if / else statment to confirm if the restaurant does delivery
+                var doesDelivery = "";
+                if (data.response.groups[0].items[i].venue.delivery != undefined) {
+                    doesDelivery = "Yes"
+                    var devliveryProvider = data.response.groups[0].items[i].venue.delivery.provider.name;
+                    var deliveryURL = data.response.groups[0].items[i].venue.delivery.url;
+                }
+                else {
+                    doesDelivery = "No"
+                }
 
-                    // Getting the icon for the restaurant "genre"
-                    var iconPrefix = data.response.groups[0].items[i].venue.categories[0].icon.prefix;
-                    var iconSuffix = data.response.groups[0].items[i].venue.categories[0].icon.suffix;
-                    var imageURL = iconPrefix + "64" + iconSuffix
+                // Getting the restaurant "genre"
+                var restaurantGenre = data.response.groups[0].items[i].venue.categories[0].shortName;
+
+                // Getting the icon for the restaurant "genre"
+                var iconPrefix = data.response.groups[0].items[i].venue.categories[0].icon.prefix;
+                var iconSuffix = data.response.groups[0].items[i].venue.categories[0].icon.suffix;
+                var imageURL = iconPrefix + "64" + iconSuffix
 
 
-                    // BUILDING THE DIV FOR THE RESTAURANT
-                    var individualRestaurantDiv = $("<div>");
+                // BUILDING THE DIV FOR THE RESTAURANT
+                var individualRestaurantDiv = $("<div>");
+                individualRestaurantDiv.attr("class", "card bg-light")
+                var restHeader = $("<div>");
+                restHeader.attr("class", "card-header");
+                restHeader.attr("id", "restHeader")
+                restHeader.css("background", "red")
+                var restBody = $("<div>");
+                restBody.attr("class", "card-body bg-light")
 
-                    // Creating the image for the restaurant genre icon
-                    var image = $("<img>");
-                    image.attr("src", imageURL);
+                // Creating the image for the restaurant genre icon
+                var image = $("<img>");
+                image.attr("src", imageURL);
 
-                    // Creating content for the name, address, and genre
-                    var name = $("<h2>").text(restaurantName);
-                    var address = $("<p>").text("Address: " + restaurantAddress);
-                    var genre = $("<p>").text("Genre: " + restaurantGenre);
+                // Creating content for the name, address, and genre
+                var name = $("<h4>").text(restaurantName);
+                name.css("margin", "0")
+                var address = $("<p>").text("Address: " + restaurantAddress);
+                var genre = $("<p>").text("Genre: " + restaurantGenre);
 
-                    // Apending everything to the div
-                    individualRestaurantDiv.append(name, address, genre, image);
+                restHeader.append(name);
+                restBody.append(image, genre, address)
+                // Apending everything to the div
+                individualRestaurantDiv.append(restHeader, restBody);
 
-                    // Running a series of if statements to confirm if the restaurant does delivery
-                    // If the restaurant doesn't do delivery, display "No Delivery Offered"
-                    if (doesDelivery === "No") {
-                        var noDeliveryURLresponse = $("<p>").text("No Delivery Offered")
-                        individualRestaurantDiv.append(noDeliveryURLresponse);
-                    }
-                    // If the restaurant does delivery, display a link to the delivery restaurant
-                    if (doesDelivery === "Yes") {
-                        var buidlingDeliveryURL = $("<a>").attr("href", deliveryURL);
-                        buidlingDeliveryURL.text(devliveryProvider.toUpperCase());
-                        buidlingDeliveryURL.attr("target", "_blank");
-                        var yesDeliveryResponse = $("<p>").text("Delivery Offered");
-                        individualRestaurantDiv.append(yesDeliveryResponse, buidlingDeliveryURL);
-                    }
+                // Running a series of if statements to confirm if the restaurant does delivery
+                // If the restaurant doesn't do delivery, display "No Delivery Offered"
+                if (doesDelivery === "No") {
+                    var noDeliveryURLresponse = $("<p>").text("No Delivery Offered")
+                    individualRestaurantDiv.append(noDeliveryURLresponse);
+                }
+                // If the restaurant does delivery, display a link to the delivery restaurant
+                if (doesDelivery === "Yes") {
+                    var buidlingDeliveryURL = $("<a>").attr("href", deliveryURL);
+                    buidlingDeliveryURL.text(devliveryProvider.toUpperCase());
+                    buidlingDeliveryURL.attr("target", "_blank");
+                    var yesDeliveryResponse = $("<p>").text("Delivery Offered");
+                    individualRestaurantDiv.append(yesDeliveryResponse, buidlingDeliveryURL);
 
-                    // APPENDING THE DIV to the HTML
-                    $("#restaurantsDiv").append(individualRestaurantDiv);
                 }
             }
 
@@ -279,19 +280,27 @@ async function fourSquareAJAXcall(event) {
                     var iconSuffix = data.response.venues[i].categories[0].icon.suffix;
                     var imageURL = iconPrefix + "64" + iconSuffix
 
-                    // BUILDING THE DIV FOR THE PARKS
-                    var individualParkDiv = $("<div>");
 
-                    // Creating the image for the park icon
-                    var image = $("<img>");
-                    image.attr("src", imageURL);
+                // BUILDING THE DIV FOR THE PARKS
+                var individualParkDiv = $("<div>");
+                individualParkDiv.attr("class", "card bg-light");
+                parkHeader = $("<div>");
+                parkHeader.attr("class", "card-header");
+                parkHeader.css("background", "green");
+                var parkBody = $("<div>");
+                parkBody.attr("class", "card-body bg-light")
+                // Creating the image for the park icon
+                var image = $("<img>");
+                image.attr("src", imageURL);
+                // Creating content for the name and address
+                var name = $("<h4>").text(parkName);
+                name.css("margin", "0")
+                parkHeader.append(name);
+                var address = $("<p>").text("Address: " + parkAddress);
+                parkBody.append(image, address);
+                // Apending everything to the div
+                individualParkDiv.append(parkHeader, parkBody);
 
-                    // Creating content for the name and address
-                    var name = $("<h2>").text(parkName);
-                    var address = $("<p>").text("Address: " + parkAddress);
-
-                    // Apending everything to the div
-                    individualParkDiv.append(name, address, image);
 
                     // APPENDING THE DIV to the HTML
                     $("#parksDiv").append(individualParkDiv);
