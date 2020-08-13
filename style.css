@@ -4,13 +4,15 @@
     box-sizing: border-box;
 }
 
+
 /*
  * -- BASE STYLES --
  * Most of these are inherited from Base, but I want to change a few.
  */
+
 body {
     height: auto;
-    background-color: #7f8c8d;
+    background-color: #FAF9EF;
     font-size: 13px;
 }
 
@@ -20,10 +22,23 @@ body {
 }
 
 
+/* hero using bootstrap */
+
+.jumbotron {
+    color: white;
+    background-image: url('assets/picnic.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50vh;
+}
+
+
 /*
  * -- MENU STYLES -- */
 
- /* .custom-wrapper {
+
+/* .custom-wrapper {
     background-color: #ffd390;
     margin-bottom: 1em;
     -webkit-font-smoothing: antialiased;
@@ -38,8 +53,8 @@ body {
 .home-menu {
     padding: 0.5em;
     text-align: center;
-    box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
-    background: #2d3e50;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.10);
+    background: #DE8254;
 }
 
 .pure-menu.pure-menu-fixed {
@@ -54,12 +69,15 @@ body {
     text-align: center;
     margin: 0;
 }
+
 .pure-form-stacked {
     width: 100%;
 }
+
 #location {
     width: 50%;
 }
+
 .pure-checkbox {
     color: white;
     text-align: left;
@@ -72,15 +90,19 @@ body {
     border-radius: 5px;
 }
 
+
 /*body style*/
+
+
 /*
  * -- LAYOUT STYLES --
  * These are some useful classes which I will need
  */
 
- label {
-    width: auto ;
+label {
+    width: auto;
 }
+
 .l-box {
     padding: 1em;
     border-width: 2px;
@@ -100,52 +122,31 @@ h2 {
     border-style: solid;
     border-color: #2d3e50;
     margin: 8px;
-    border-top: 0 ;
+    border-top: 0;
     border-right: 0;
 }
+.card {
+    margin-bottom: 1em;
+}
 
- /* -- TABLET (AND UP) MEDIA QUERIES --
+
+/* -- TABLET (AND UP) MEDIA QUERIES --
  * On tablets and other medium-sized devices, we want to customize some
  * of the mobile styles.
  */
-@media (min-width: 30em) {
 
+@media (min-width: 30em) {
     /* We increase the body font size */
     body {
         font-size: 16px;
     }
-
     /* We can align the menu header to the left, but float the
     menu items to the right. */
     .home-menu {
         text-align: center;
     }
-        .home-menu ul {
-            float: left;
-        }
-
-    /* We increase the height of the splash-container */
-/*    .splash-container {
-        height: 500px;
-    }*/
-
-    /* We decrease the width of the .splash, since we have more width
-    to work with */
-    .splash {
-        width: 50%;
-        height: 50%;
+    .home-menu ul {
+        float: left;
     }
-
-    .splash-head {
-        font-size: 250%;
-    }
-
-
-    /* We remove the border-separator assigned to .l-box-lrg */
-    .l-box-lrg {
-        border: none;
-    }
-
+   
 }
-
-
