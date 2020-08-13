@@ -52,7 +52,7 @@ async function buildFourSquareQueryURL() {
     var searchTYPE = eitherORsearch.getAttribute("data-searchTYPE");
 
     // Run a series of if statements, based on the data attribute
-    
+
     // If an addressSearch was performed, run the geocoding function and get those coordinates
     if (searchTYPE === "AddressSearch") {
         // Awaiting the return from geocoding() prior to continuing the rest of the buildFourSquareQueryURL function
@@ -64,7 +64,7 @@ async function buildFourSquareQueryURL() {
     if (searchTYPE === "currentLocationSearch") {
         // If the currentLocationCoordinates are set to [0,0], it is because...
         // the user did not allow for location services
-        if (currentLocationCoordinates === [0,0]) {
+        if (currentLocationCoordinates === [0, 0]) {
             return;
         }
         // Else, use the currentLocationCoordinates as the coordinates within the buildFourSquareQueryURL function
@@ -146,6 +146,7 @@ async function fourSquareAJAXcall(event) {
                 maximumCountRestaurants = 10;
             }
 
+
             // Looping through the first 10 results, parsing the data, and displaying the data on the html page
             for (var i = 0; i < maximumCountRestaurants; i++) {
                 // Getting the restaurant name
@@ -212,11 +213,8 @@ async function fourSquareAJAXcall(event) {
                     buidlingDeliveryURL.attr("target", "_blank");
                     var yesDeliveryResponse = $("<p>").text("Delivery Offered");
                     individualRestaurantDiv.append(yesDeliveryResponse, buidlingDeliveryURL);
+
                 }
-
-                // APPENDING THE DIV to the HTML
-                $("#restaurantsDiv").append(individualRestaurantDiv);
-
             }
 
         },
@@ -262,18 +260,26 @@ async function fourSquareAJAXcall(event) {
                 maximumCountParks = 10;
             }
 
-            // Looping through the first 10 results, parsing the data, and displaying the data on the html page
-            for (var i = 0; i < maximumCountParks; i++) {
-                // Getting the park name
-                var parkName = data.response.venues[i].name;
+            // If no results were returned, display "No results found..."
+            if (lengthOfResponse === 0) {
+                var retrySearch = $("<p>").text("No results found for your search")
+                $("#parksDiv").append(retrySearch);
+            }
+            // Else, continue...
+            else {
+                // Looping through the first 10 results, parsing the data, and displaying the data on the html page
+                for (var i = 0; i < maximumCountParks; i++) {
+                    // Getting the park name
+                    var parkName = data.response.venues[i].name;
 
-                // Getting the park address
-                var parkAddress = data.response.venues[i].location.formattedAddress[0];
+                    // Getting the park address
+                    var parkAddress = data.response.venues[i].location.formattedAddress[0];
 
-                // Getting the icon for the park
-                var iconPrefix = data.response.venues[i].categories[0].icon.prefix;
-                var iconSuffix = data.response.venues[i].categories[0].icon.suffix;
-                var imageURL = iconPrefix + "64" + iconSuffix
+                    // Getting the icon for the park
+                    var iconPrefix = data.response.venues[i].categories[0].icon.prefix;
+                    var iconSuffix = data.response.venues[i].categories[0].icon.suffix;
+                    var imageURL = iconPrefix + "64" + iconSuffix
+
 
                 // BUILDING THE DIV FOR THE PARKS
                 var individualParkDiv = $("<div>");
@@ -295,10 +301,11 @@ async function fourSquareAJAXcall(event) {
                 // Apending everything to the div
                 individualParkDiv.append(parkHeader, parkBody);
 
-                // APPENDING THE DIV to the HTML
-                $("#parksDiv").append(individualParkDiv);
-            }
 
+                    // APPENDING THE DIV to the HTML
+                    $("#parksDiv").append(individualParkDiv);
+                }
+            }
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -363,7 +370,7 @@ $("#locationBtn").on("click", function (event) {
 // Location determination based on Mozilla documentation:
 // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
 
-let currentLocationCoordinates = [0,0];
+let currentLocationCoordinates = [0, 0];
 function currentLocation() {
     function success(pos) {
         var crd = pos.coords;
@@ -375,7 +382,7 @@ function currentLocation() {
     }
     function error(err) {
         console.warn(`ERROR(${err.code}): ${err.message}`)
-        currentLocationCoordinates = [0,0];
+        currentLocationCoordinates = [0, 0];
     }
     var options = {
         enableHighAccuracy: true,
