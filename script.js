@@ -215,6 +215,8 @@ async function fourSquareAJAXcall(event) {
                     individualRestaurantDiv.append(yesDeliveryResponse, buidlingDeliveryURL);
 
                 }
+                // APPENDING THE DIV to the HTML
+                $("#restaurantsDiv").append(individualRestaurantDiv);
             }
 
         },
@@ -281,26 +283,25 @@ async function fourSquareAJAXcall(event) {
                     var imageURL = iconPrefix + "64" + iconSuffix
 
 
-                // BUILDING THE DIV FOR THE PARKS
-                var individualParkDiv = $("<div>");
-                individualParkDiv.attr("class", "card bg-light");
-                parkHeader = $("<div>");
-                parkHeader.attr("class", "card-header");
-                parkHeader.css("background", "green");
-                var parkBody = $("<div>");
-                parkBody.attr("class", "card-body bg-light")
-                // Creating the image for the park icon
-                var image = $("<img>");
-                image.attr("src", imageURL);
-                // Creating content for the name and address
-                var name = $("<h4>").text(parkName);
-                name.css("margin", "0")
-                parkHeader.append(name);
-                var address = $("<p>").text("Address: " + parkAddress);
-                parkBody.append(image, address);
-                // Apending everything to the div
-                individualParkDiv.append(parkHeader, parkBody);
-
+                    // BUILDING THE DIV FOR THE PARKS
+                    var individualParkDiv = $("<div>");
+                    individualParkDiv.attr("class", "card bg-light");
+                    parkHeader = $("<div>");
+                    parkHeader.attr("class", "card-header");
+                    parkHeader.css("background", "green");
+                    var parkBody = $("<div>");
+                    parkBody.attr("class", "card-body bg-light")
+                    // Creating the image for the park icon
+                    var image = $("<img>");
+                    image.attr("src", imageURL);
+                    // Creating content for the name and address
+                    var name = $("<h4>").text(parkName);
+                    name.css("margin", "0")
+                    parkHeader.append(name);
+                    var address = $("<p>").text("Address: " + parkAddress);
+                    parkBody.append(image, address);
+                    // Apending everything to the div
+                    individualParkDiv.append(parkHeader, parkBody);
 
                     // APPENDING THE DIV to the HTML
                     $("#parksDiv").append(individualParkDiv);
