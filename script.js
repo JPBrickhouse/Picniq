@@ -30,7 +30,7 @@ function geocoding() {
     return ($.ajax({
         url: queryURLgeocoding,
         method: "GET"
-    }).then(function (geocodeData) {
+    }).then(function(geocodeData) {
         var latitude = geocodeData.results[0].geometry.lat;
         var longitude = geocodeData.results[0].geometry.lng;
         var coordinates = [latitude, longitude];
@@ -52,7 +52,7 @@ async function buildFourSquareQueryURL() {
     var searchTYPE = eitherORsearch.getAttribute("data-searchTYPE");
 
     // Run a series of if statements, based on the data attribute
-    
+
     // If an addressSearch was performed, run the geocoding function and get those coordinates
     if (searchTYPE === "AddressSearch") {
         // Awaiting the return from geocoding() prior to continuing the rest of the buildFourSquareQueryURL function
@@ -64,7 +64,7 @@ async function buildFourSquareQueryURL() {
     if (searchTYPE === "currentLocationSearch") {
         // If the currentLocationCoordinates are set to [0,0], it is because...
         // the user did not allow for location services
-        if (currentLocationCoordinates === [0,0]) {
+        if (currentLocationCoordinates === [0, 0]) {
             return;
         }
         // Else, use the currentLocationCoordinates as the coordinates within the buildFourSquareQueryURL function
@@ -131,7 +131,7 @@ async function fourSquareAJAXcall(event) {
         dataType: "json",
         url: fourSquareRestaurantQueryURL,
         data: {},
-        success: function (data) {
+        success: function(data) {
             // Code for handling API response
             console.log(data);
 
@@ -141,8 +141,7 @@ async function fourSquareAJAXcall(event) {
             var lengthOfResponse = data.response.groups[0].items.length;
             if (lengthOfResponse <= 10) {
                 maximumCountRestaurants = lengthOfResponse
-            }
-            else {
+            } else {
                 maximumCountRestaurants = 10;
             }
 
@@ -160,8 +159,7 @@ async function fourSquareAJAXcall(event) {
                     doesDelivery = "Yes"
                     var devliveryProvider = data.response.groups[0].items[i].venue.delivery.provider.name;
                     var deliveryURL = data.response.groups[0].items[i].venue.delivery.url;
-                }
-                else {
+                } else {
                     doesDelivery = "No"
                 }
 
@@ -196,7 +194,7 @@ async function fourSquareAJAXcall(event) {
 
                 restHeader.append(name);
                 restBody.append(image, genre, address)
-                // Apending everything to the div
+                    // Apending everything to the div
                 individualRestaurantDiv.append(restHeader, restBody);
 
                 // Running a series of if statements to confirm if the restaurant does delivery
@@ -220,7 +218,7 @@ async function fourSquareAJAXcall(event) {
             }
 
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function(jqXHR, textStatus, errorThrown) {
             // Code for handling errors in the Restaurants AJAX call
             console.log(jqXHR);
             console.log(textStatus);
@@ -247,7 +245,7 @@ async function fourSquareAJAXcall(event) {
         dataType: "json",
         url: fourSquareParksQueryURL,
         data: {},
-        success: function (data) {
+        success: function(data) {
             // Code for handling API response
             console.log(data);
 
@@ -257,8 +255,7 @@ async function fourSquareAJAXcall(event) {
             var lengthOfResponse = data.response.venues.length;
             if (lengthOfResponse <= 10) {
                 maximumCountParks = lengthOfResponse
-            }
-            else {
+            } else {
                 maximumCountParks = 10;
             }
 
@@ -283,7 +280,7 @@ async function fourSquareAJAXcall(event) {
                 parkHeader.css("background", "green");
                 var parkBody = $("<div>");
                 parkBody.attr("class", "card-body bg-light")
-                // Creating the image for the park icon
+                    // Creating the image for the park icon
                 var image = $("<img>");
                 image.attr("src", imageURL);
                 // Creating content for the name and address
@@ -298,9 +295,9 @@ async function fourSquareAJAXcall(event) {
                 // APPENDING THE DIV to the HTML
                 $("#parksDiv").append(individualParkDiv);
             }
-         
+
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function(jqXHR, textStatus, errorThrown) {
             // Code for handling errors in the AJAX calls
             console.log(jqXHR);
             console.log(textStatus);
@@ -329,7 +326,7 @@ async function fourSquareAJAXcall(event) {
 // << Event listeners to run the fourSquareAJAXcall function! >> 
 //
 // The submitBtn button has an event listener
-$("#submitBtn").on("click", function (event) {
+$("#submitBtn").on("click", function(event) {
     event.preventDefault();
 
     // Shows results div on screen
@@ -345,7 +342,7 @@ $("#submitBtn").on("click", function (event) {
 });
 
 // The locationBtn button has an event listener
-$("#locationBtn").on("click", function (event) {
+$("#locationBtn").on("click", function(event) {
     event.preventDefault();
 
     // Shows results div on screen
@@ -361,11 +358,11 @@ $("#locationBtn").on("click", function (event) {
 });
 
 // Button that allows user to hide and show the results divs
-$("#restaurantsToggle").click(function(){
-    $("#restaurantsDiv").toggle(); 
+$("#restaurantsToggle").click(function() {
+    $("#restaurantsDiv").toggle();
     var restaurantsDiv = $("#restaurantsdiv")
 });
-$("#parksToggle").click(function(){
+$("#parksToggle").click(function() {
     $("#parksDiv").toggle();
 });
 
@@ -376,7 +373,8 @@ $("#parksToggle").click(function(){
 // Location determination based on Mozilla documentation:
 // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
 
-let currentLocationCoordinates = [0,0];
+let currentLocationCoordinates = [0, 0];
+
 function currentLocation() {
     function success(pos) {
         var crd = pos.coords;
@@ -386,9 +384,10 @@ function currentLocation() {
         console.log(`More or less ${crd.accuracy} meters.`);
         currentLocationCoordinates = [crd.latitude, crd.longitude];
     }
+
     function error(err) {
         console.warn(`ERROR(${err.code}): ${err.message}`)
-        currentLocationCoordinates = [0,0];
+        currentLocationCoordinates = [0, 0];
     }
     var options = {
         enableHighAccuracy: true,
