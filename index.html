@@ -7,10 +7,10 @@
     <title>Project One</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-  <!-- Purecss Library -->
-  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Purecss Library -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <!-- bootstrap stylesheet -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -22,13 +22,17 @@
 
     <script src="https://kit.fontawesome.com/603553199c.js" crossorigin="anonymous"></script>
 
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Quando&display=swap" rel="stylesheet">
+
+
 </head>
 
 <body>
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">Picniq</h1>
+            <h1 class="display-4">picniq</h1>
             <p>A new way to experience...</p>
         </div>
     </div>
@@ -47,7 +51,7 @@
                         <input type="Location" id="addressInput" placeholder="Enter Address">
                         <button type="submit" class="pure-button pure-button-primary" id="submitBtn">Picnic</button>
                         <br>
-                         <!-- Putting an ID and data-attribute here to reference in the javascript file -->
+                        <!-- Putting an ID and data-attribute here to reference in the javascript file -->
                         <h2 id="eitherORsearch" data-searchTYPE="">OR...</h2>
                         <br>
                         <button type="submit" class="pure-button pure-button-primary" id="locationBtn">Search using your current location!</button>
@@ -66,14 +70,16 @@
         </div>
     </div>
     <div class="pure-g" id="resultsDiv">
-      <div class="pure-u-1 pure-u-md-1-2">
-        <h2 id="restaurantsToggle">Restaurants Near You <i class="fas fa-sort"></i></h2>
-        <div class="l-box" id="restaurantsDiv"></div> <!-- DIV WHERE THE RESTAURANT CONTENT GETS DUMPED -->
-      </div>
-      <div class="pure-u-1 pure-u-md-1-2">
-        <h2 id="parksToggle">Parks Near You <i class="fas fa-sort"></i></h2>
-        <div class="l-box" id="parksDiv"></div> <!-- DIV WHERE THE PARKS CONTENT GETS DUMPED -->
-      </div>
+        <div class="pure-u-1 pure-u-md-1-2">
+            <h2 id="restaurantsToggle">Restaurants <i class="fas fa-sort"></i></h2>
+            <div class="l-box" id="restaurantsDiv"></div>
+            <!-- DIV WHERE THE RESTAURANT CONTENT GETS DUMPED -->
+        </div>
+        <div class="pure-u-1 pure-u-md-1-2">
+            <h2 id="parksToggle">Parks<i class="fas fa-sort"></i></h2>
+            <div class="l-box" id="parksDiv"></div>
+            <!-- DIV WHERE THE PARKS CONTENT GETS DUMPED -->
+        </div>
     </div>
 
 
@@ -84,14 +90,14 @@
     <!-- jQuery Library -->
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
-  <!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <!-- Team Created Javascript File -->
-  <script src='script.js'></script>
+    <!-- Team Created Javascript File -->
+    <script src='script.js'></script>
 
 </body>
 
