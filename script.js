@@ -30,7 +30,7 @@ function geocoding() {
     return ($.ajax({
         url: queryURLgeocoding,
         method: "GET"
-    }).then(function (geocodeData) {
+    }).then(function(geocodeData) {
         var latitude = geocodeData.results[0].geometry.lat;
         var longitude = geocodeData.results[0].geometry.lng;
         var coordinates = [latitude, longitude];
@@ -52,7 +52,7 @@ async function buildFourSquareQueryURL() {
     var searchTYPE = eitherORsearch.getAttribute("data-searchTYPE");
 
     // Run a series of if statements, based on the data attribute
-    
+
     // If an addressSearch was performed, run the geocoding function and get those coordinates
     if (searchTYPE === "AddressSearch") {
         // Awaiting the return from geocoding() prior to continuing the rest of the buildFourSquareQueryURL function
@@ -64,7 +64,7 @@ async function buildFourSquareQueryURL() {
     if (searchTYPE === "currentLocationSearch") {
         // If the currentLocationCoordinates are set to [0,0], it is because...
         // the user did not allow for location services
-        if (currentLocationCoordinates === [0,0]) {
+        if (currentLocationCoordinates === [0, 0]) {
             return;
         }
         // Else, use the currentLocationCoordinates as the coordinates within the buildFourSquareQueryURL function
@@ -131,7 +131,7 @@ async function fourSquareAJAXcall(event) {
         dataType: "json",
         url: fourSquareRestaurantQueryURL,
         data: {},
-        success: function (data) {
+        success: function(data) {
             // Code for handling API response
             console.log(data);
 
@@ -141,10 +141,10 @@ async function fourSquareAJAXcall(event) {
             var lengthOfResponse = data.response.groups[0].items.length;
             if (lengthOfResponse <= 10) {
                 maximumCountRestaurants = lengthOfResponse
-            }
-            else {
+            } else {
                 maximumCountRestaurants = 10;
             }
+
 
             // Looping through the first 10 results, parsing the data, and displaying the data on the html page
             for (var i = 0; i < maximumCountRestaurants; i++) {
@@ -160,8 +160,7 @@ async function fourSquareAJAXcall(event) {
                     doesDelivery = "Yes"
                     var devliveryProvider = data.response.groups[0].items[i].venue.delivery.provider.name;
                     var deliveryURL = data.response.groups[0].items[i].venue.delivery.url;
-                }
-                else {
+                } else {
                     doesDelivery = "No"
                 }
 
@@ -180,7 +179,7 @@ async function fourSquareAJAXcall(event) {
                 var restHeader = $("<div>");
                 restHeader.attr("class", "card-header");
                 restHeader.attr("id", "restHeader")
-                restHeader.css("background", "red")
+                restHeader.css("background-color", "#648943")
                 var restBody = $("<div>");
                 restBody.attr("class", "card-body bg-light")
 
@@ -196,7 +195,7 @@ async function fourSquareAJAXcall(event) {
 
                 restHeader.append(name);
                 restBody.append(image, genre, address)
-                // Apending everything to the div
+                    // Apending everything to the div
                 individualRestaurantDiv.append(restHeader, restBody);
 
                 // Running a series of if statements to confirm if the restaurant does delivery
@@ -212,15 +211,14 @@ async function fourSquareAJAXcall(event) {
                     buidlingDeliveryURL.attr("target", "_blank");
                     var yesDeliveryResponse = $("<p>").text("Delivery Offered");
                     individualRestaurantDiv.append(yesDeliveryResponse, buidlingDeliveryURL);
-                }
 
+                }
                 // APPENDING THE DIV to the HTML
                 $("#restaurantsDiv").append(individualRestaurantDiv);
-
             }
 
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function(jqXHR, textStatus, errorThrown) {
             // Code for handling errors in the Restaurants AJAX call
             console.log(jqXHR);
             console.log(textStatus);
@@ -247,7 +245,7 @@ async function fourSquareAJAXcall(event) {
         dataType: "json",
         url: fourSquareParksQueryURL,
         data: {},
-        success: function (data) {
+        success: function(data) {
             // Code for handling API response
             console.log(data);
 
@@ -257,50 +255,58 @@ async function fourSquareAJAXcall(event) {
             var lengthOfResponse = data.response.venues.length;
             if (lengthOfResponse <= 10) {
                 maximumCountParks = lengthOfResponse
-            }
-            else {
+            } else {
                 maximumCountParks = 10;
             }
 
-            // Looping through the first 10 results, parsing the data, and displaying the data on the html page
-            for (var i = 0; i < maximumCountParks; i++) {
-                // Getting the park name
-                var parkName = data.response.venues[i].name;
-
-                // Getting the park address
-                var parkAddress = data.response.venues[i].location.formattedAddress[0];
-
-                // Getting the icon for the park
-                var iconPrefix = data.response.venues[i].categories[0].icon.prefix;
-                var iconSuffix = data.response.venues[i].categories[0].icon.suffix;
-                var imageURL = iconPrefix + "64" + iconSuffix
-
-                // BUILDING THE DIV FOR THE PARKS
-                var individualParkDiv = $("<div>");
-                individualParkDiv.attr("class", "card bg-light");
-                parkHeader = $("<div>");
-                parkHeader.attr("class", "card-header");
-                parkHeader.css("background", "green");
-                var parkBody = $("<div>");
-                parkBody.attr("class", "card-body bg-light")
-                // Creating the image for the park icon
-                var image = $("<img>");
-                image.attr("src", imageURL);
-                // Creating content for the name and address
-                var name = $("<h4>").text(parkName);
-                name.css("margin", "0")
-                parkHeader.append(name);
-                var address = $("<p>").text("Address: " + parkAddress);
-                parkBody.append(image, address);
-                // Apending everything to the div
-                individualParkDiv.append(parkHeader, parkBody);
-
-                // APPENDING THE DIV to the HTML
-                $("#parksDiv").append(individualParkDiv);
+            // If no results were returned, display "No results found..."
+            if (lengthOfResponse === 0) {
+                var retrySearch = $("<p>").text("No results found for your search")
+                $("#parksDiv").append(retrySearch);
             }
-         
+            // Else, continue...
+            else {
+                // Looping through the first 10 results, parsing the data, and displaying the data on the html page
+                for (var i = 0; i < maximumCountParks; i++) {
+                    // Getting the park name
+                    var parkName = data.response.venues[i].name;
+
+                    // Getting the park address
+                    var parkAddress = data.response.venues[i].location.formattedAddress[0];
+
+                    // Getting the icon for the park
+                    var iconPrefix = data.response.venues[i].categories[0].icon.prefix;
+                    var iconSuffix = data.response.venues[i].categories[0].icon.suffix;
+                    var imageURL = iconPrefix + "64" + iconSuffix
+
+
+                    // BUILDING THE DIV FOR THE PARKS
+                    var individualParkDiv = $("<div>");
+                    individualParkDiv.attr("class", "card bg-light");
+                    parkHeader = $("<div>");
+                    parkHeader.attr("class", "card-header");
+                    parkHeader.css("background", "#648943");
+                    var parkBody = $("<div>");
+                    parkBody.attr("class", "card-body bg-light")
+                        // Creating the image for the park icon
+                    var image = $("<img>");
+                    image.attr("src", imageURL);
+                    // Creating content for the name and address
+                    var name = $("<h4>").text(parkName);
+                    name.css("margin", "0")
+                    parkHeader.append(name);
+                    var address = $("<p>").text("Address: " + parkAddress);
+                    parkBody.append(image, address);
+                    // Apending everything to the div
+                    individualParkDiv.append(parkHeader, parkBody);
+
+                    // APPENDING THE DIV to the HTML
+                    $("#parksDiv").append(individualParkDiv);
+                }
+            }
+
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function(jqXHR, textStatus, errorThrown) {
             // Code for handling errors in the AJAX calls
             console.log(jqXHR);
             console.log(textStatus);
@@ -329,11 +335,8 @@ async function fourSquareAJAXcall(event) {
 // << Event listeners to run the fourSquareAJAXcall function! >> 
 //
 // The submitBtn button has an event listener
-$("#submitBtn").on("click", function (event) {
+$("#submitBtn").on("click", function(event) {
     event.preventDefault();
-
-    // Shows results div on screen
-    $("#resultsDiv").show();
 
     // Setting the data attribute of data-searchTYPE
     // This gets referenced within fourSquareAJAXcall
@@ -345,11 +348,8 @@ $("#submitBtn").on("click", function (event) {
 });
 
 // The locationBtn button has an event listener
-$("#locationBtn").on("click", function (event) {
+$("#locationBtn").on("click", function(event) {
     event.preventDefault();
-
-    // Shows results div on screen
-    $("#resultsDiv").show();
 
     // Setting the data attribute of data-searchTYPE
     // This gets referenced within fourSquareAJAXcall
@@ -360,14 +360,6 @@ $("#locationBtn").on("click", function (event) {
     fourSquareAJAXcall(event)
 });
 
-// Button that allows user to hide and show the results divs
-$("#restaurantsToggle").click(function(){
-    $("#restaurantsDiv").toggle(); 
-    var restaurantsDiv = $("#restaurantsdiv")
-});
-$("#parksToggle").click(function(){
-    $("#parksDiv").toggle();
-});
 
 // ---------------------------------------
 // << Function that runs immediately whent the page opens >> 
@@ -376,7 +368,8 @@ $("#parksToggle").click(function(){
 // Location determination based on Mozilla documentation:
 // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
 
-let currentLocationCoordinates = [0,0];
+let currentLocationCoordinates = [0, 0];
+
 function currentLocation() {
     function success(pos) {
         var crd = pos.coords;
@@ -386,9 +379,10 @@ function currentLocation() {
         console.log(`More or less ${crd.accuracy} meters.`);
         currentLocationCoordinates = [crd.latitude, crd.longitude];
     }
+
     function error(err) {
         console.warn(`ERROR(${err.code}): ${err.message}`)
-        currentLocationCoordinates = [0,0];
+        currentLocationCoordinates = [0, 0];
     }
     var options = {
         enableHighAccuracy: true,
