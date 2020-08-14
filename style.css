@@ -72,8 +72,7 @@ p {
     text-align: center;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.10);
     background: #DC7718;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding: 5px;
 }
 
 .pure-menu.pure-menu-fixed {
@@ -88,7 +87,6 @@ p {
     text-align: center;
     margin: 0;
     font-family: 'Quando', serif;
-    ;
 }
 
 .pure-form-stacked {
@@ -109,14 +107,22 @@ p {
     color: #FAF9EF;
     padding: 0.5em .5em;
     border-radius: 5px;
+    font-family: 'Quando', serif;
+
 }
 
+fieldset {
+    margin: 4px;
+}
 #addressInput {
     border-radius: 16px;
     width: 250px;
     height: 35px;
 }
 
+#eitherORsearch {
+    font-family: 'Quando', serif;
+}
 
 /*body style*/
 
