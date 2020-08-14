@@ -139,8 +139,12 @@ async function fourSquareAJAXcall(event) {
             // (Up to a maximum of 10)
             var maximumCountRestaurants = 0
             var lengthOfResponse = data.response.groups[0].items.length;
-            if (lengthOfResponse <= 10) {
-                maximumCountRestaurants = lengthOfResponse
+            if (lengthOfResponse <= 10 && lengthOfResponse > 0) {
+                maximumCountRestaurants = lengthOfResponse;
+            } else if (lengthOfResponse === 0) {
+                maximumCountRestaurants = 0;
+                var noSearchResultsDisplay = "No search results for your area. Please try a different location.";
+                $("#restaurantsDiv").append(noSearchResultsDisplay);
             } else {
                 maximumCountRestaurants = 10;
             }
@@ -253,8 +257,12 @@ async function fourSquareAJAXcall(event) {
             // (Up to a maximum of 10)
             var maximumCountParks = 0
             var lengthOfResponse = data.response.venues.length;
-            if (lengthOfResponse <= 10) {
-                maximumCountParks = lengthOfResponse
+            if (lengthOfResponse <= 10 && lengthOfResponse > 0) {
+                maximumCountParks = lengthOfResponse;
+            } else if (lengthOfResponse === 0) {
+                maximumCountParks = 0;
+                var noSearchResultsDisplay = "No search results for your area. Please try a different location.";
+                $("#parksDiv").append(noSearchResultsDisplay);
             } else {
                 maximumCountParks = 10;
             }
@@ -360,7 +368,6 @@ $("#locationBtn").on("click", function(event) {
 // Button that allows user to hide and show the results divs
 $("#restaurantsToggle").click(function() {
     $("#restaurantsDiv").toggle();
-    var restaurantsDiv = $("#restaurantsdiv")
 });
 $("#parksToggle").click(function() {
     $("#parksDiv").toggle();
