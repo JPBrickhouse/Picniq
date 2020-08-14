@@ -128,7 +128,9 @@ h2 {
 .card {
     margin-bottom: 1em;
 }
-
+#resultsDiv {
+    display: none;
+}
 
 /* -- TABLET (AND UP) MEDIA QUERIES --
  * On tablets and other medium-sized devices, we want to customize some
@@ -148,4 +150,5 @@ h2 {
     .home-menu ul {
         float: left;
     }
+   
 }
