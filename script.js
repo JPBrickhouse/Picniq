@@ -204,16 +204,22 @@ async function fourSquareAJAXcall(event) {
                 // Running a series of if statements to confirm if the restaurant does delivery
                 // If the restaurant doesn't do delivery, display "No Delivery Offered"
                 if (doesDelivery === "No") {
+                    var restFooter = $("<div>");
+                    restFooter.attr("class", "card-footer");
                     var noDeliveryURLresponse = $("<p>").text("No Delivery Offered")
-                    individualRestaurantDiv.append(noDeliveryURLresponse);
+                    restFooter.append(noDeliveryURLresponse);
+                    individualRestaurantDiv.append(restFooter);
                 }
                 // If the restaurant does delivery, display a link to the delivery restaurant
                 if (doesDelivery === "Yes") {
+                    var restFooter = $("<div>");
+                    restFooter.attr("class", "card-footer");
                     var buidlingDeliveryURL = $("<a>").attr("href", deliveryURL);
                     buidlingDeliveryURL.text(devliveryProvider.toUpperCase());
                     buidlingDeliveryURL.attr("target", "_blank");
                     var yesDeliveryResponse = $("<p>").text("Delivery Offered");
-                    individualRestaurantDiv.append(yesDeliveryResponse, buidlingDeliveryURL);
+                    restFooter.append(yesDeliveryResponse, buidlingDeliveryURL);
+                    individualRestaurantDiv.append(restFooter);
                 }
 
                 // APPENDING THE DIV to the HTML
