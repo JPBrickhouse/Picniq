@@ -17,12 +17,14 @@ body {
     font-size: 13px;
     font-family: 'Lato', sans-serif;
 }
-.container{
-    max-width: 1080px; 
+.all {
+    max-width: 968px; 
 	margin: 0 auto; 
 	float: none;
 }
-
+.container {
+    margin: 0;
+}
 .pure-img-responsive {
     max-width: 100%;
     height: auto;
@@ -184,5 +186,8 @@ h4 {
 @media (max-width: 568px) {
     .l-box {
         display: none;
+    }
+    .container {
+        margin: 0
     }
 }
