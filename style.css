@@ -2,6 +2,7 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
 }
 
 
@@ -86,7 +87,7 @@ p {
     font-size: 120%;
     text-align: center;
     margin: 0;
-    font-family: 'Quando', serif;
+    font-family: 'Lato', sans-serif;
 }
 
 .pure-form-stacked {
@@ -107,13 +108,13 @@ p {
     color: #FAF9EF;
     padding: 0.5em .5em;
     border-radius: 5px;
-    font-family: 'Quando', serif;
-
+    font-family: 'Lato', sans-serif;
 }
 
 fieldset {
     margin: 4px;
 }
+
 #addressInput {
     border-radius: 16px;
     width: 250px;
@@ -121,8 +122,9 @@ fieldset {
 }
 
 #eitherORsearch {
-    font-family: 'Quando', serif;
+    font-family: 'Lato', sans-serif;
 }
+
 
 /*body style*/
 
@@ -138,10 +140,7 @@ label {
 
 .l-box {
     padding: 1em;
-    border-width: 2px;
-    border-style: solid;
     margin: 8px;
-    border-color: #2d3e50;
 }
 
 .pure-g div {
@@ -160,6 +159,7 @@ h2 {
 
 .card {
     margin-bottom: 1em;
+    border: 2px solid#394D56;
 }
 
 #resultsDiv {
