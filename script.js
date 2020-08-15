@@ -178,13 +178,13 @@ async function fourSquareAJAXcall(event) {
 
                 // BUILDING THE DIV FOR THE RESTAURANT
                 var individualRestaurantDiv = $("<div>");
-                individualRestaurantDiv.attr("class", "card bg-light")
+                individualRestaurantDiv.attr("class", "card")
                 var restHeader = $("<div>");
                 restHeader.attr("class", "card-header");
                 restHeader.attr("id", "restHeader")
-                restHeader.css("background", "red")
+                restHeader.css("background", "#9EB8BD")
                 var restBody = $("<div>");
-                restBody.attr("class", "card-body bg-light")
+                restBody.attr("class", "card-body")
 
                 // Creating the image for the restaurant genre icon
                 var image = $("<img>");
@@ -288,12 +288,12 @@ async function fourSquareAJAXcall(event) {
 
                 // BUILDING THE DIV FOR THE PARKS
                 var individualParkDiv = $("<div>");
-                individualParkDiv.attr("class", "card bg-light");
+                individualParkDiv.attr("class", "card");
                 parkHeader = $("<div>");
                 parkHeader.attr("class", "card-header");
-                parkHeader.css("background", "green");
+                parkHeader.css("background", "#9EB8BD");
                 var parkBody = $("<div>");
-                parkBody.attr("class", "card-body bg-light")
+                parkBody.attr("class", "card-body")
                     // Creating the image for the park icon
                 var image = $("<img>");
                 image.attr("src", imageURL);
