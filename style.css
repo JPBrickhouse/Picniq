@@ -17,6 +17,11 @@ body {
     font-size: 13px;
     font-family: 'Lato', sans-serif;
 }
+.container{
+    max-width: 1080px; 
+	margin: 0 auto; 
+	float: none;
+}
 
 .pure-img-responsive {
     max-width: 100%;
