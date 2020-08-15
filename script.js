@@ -173,7 +173,7 @@ async function fourSquareAJAXcall(event) {
                 // Getting the icon for the restaurant "genre"
                 var iconPrefix = data.response.groups[0].items[i].venue.categories[0].icon.prefix;
                 var iconSuffix = data.response.groups[0].items[i].venue.categories[0].icon.suffix;
-                var imageURL = iconPrefix + "64" + iconSuffix
+                var imageURL = iconPrefix + "44" + iconSuffix
 
 
                 // BUILDING THE DIV FOR THE RESTAURANT
@@ -189,15 +189,15 @@ async function fourSquareAJAXcall(event) {
                 // Creating the image for the restaurant genre icon
                 var image = $("<img>");
                 image.attr("src", imageURL);
+                image.css("float", "right");
 
                 // Creating content for the name, address, and genre
                 var name = $("<h4>").text(restaurantName);
                 name.css("margin", "0")
                 var address = $("<p>").text("Address: " + restaurantAddress);
                 var genre = $("<p>").text("Genre: " + restaurantGenre);
-
-                restHeader.append(name);
-                restBody.append(image, genre, address)
+                restHeader.append(name, image);
+                restBody.append(genre, address)
                     // Apending everything to the div
                 individualRestaurantDiv.append(restHeader, restBody);
 
@@ -284,7 +284,7 @@ async function fourSquareAJAXcall(event) {
                 // Getting the icon for the park
                 var iconPrefix = data.response.venues[i].categories[0].icon.prefix;
                 var iconSuffix = data.response.venues[i].categories[0].icon.suffix;
-                var imageURL = iconPrefix + "64" + iconSuffix
+                var imageURL = iconPrefix + "44" + iconSuffix
 
                 // BUILDING THE DIV FOR THE PARKS
                 var individualParkDiv = $("<div>");
@@ -300,9 +300,9 @@ async function fourSquareAJAXcall(event) {
                 // Creating content for the name and address
                 var name = $("<h4>").text(parkName);
                 name.css("margin", "0")
-                parkHeader.append(name);
+                parkHeader.append(name, image);
                 var address = $("<p>").text("Address: " + parkAddress);
-                parkBody.append(image, address);
+                parkBody.append(address);
                 // Apending everything to the div
                 individualParkDiv.append(parkHeader, parkBody);
 
