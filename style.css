@@ -15,6 +15,9 @@ body {
     background-color: white;
     font-size: 13px;
     font-family: 'Lato', sans-serif;
+    max-width: 968px; 
+	margin: 0 auto; 
+	float: none;
 }
 
 .pure-img-responsive {
@@ -53,19 +56,6 @@ p {
 
 /*
  * -- MENU STYLES -- */
-
-
-/* .custom-wrapper {
-    background-color: #ffd390;
-    margin-bottom: 1em;
-    -webkit-font-smoothing: antialiased;
-    height: auto;
-    overflow: hidden;
-    -webkit-transition: height 0.5s;
-    -moz-transition: height 0.5s;
-    -ms-transition: height 0.5s;
-    transition: height 0.5s;
-} */
 
 .home-menu {
     padding: 0.5em;
@@ -182,7 +172,14 @@ h2 {
     .home-menu {
         text-align: center;
     }
-    .home-menu ul {
-        float: left;
+}
+@media (max-width: 568px) {
+    .l-box {
+        display: none;
+    }
+}
+@media (min-width: 1068px) {
+    body {
+        margin: auto;
     }
 }
