@@ -10,8 +10,6 @@ function buildGeoCodeQueryURL() {
 
     queryParameters.no_annotations = 1;
 
-    console.log(queryURL + $.param(queryParameters));
-
     // Returning the queryURL for the geocoding() function
     return (queryURL + $.param(queryParameters))
 }
@@ -87,7 +85,6 @@ async function buildFourSquareQueryURL() {
     restaurantParameters.limit = 10; // 10 results returned by default
     restaurantParameters.sortByDistance = 1; // Boolean flag to sort the results by distance instead of relevance
     var fourSquareRestaurantQueryURL = initialRestaurantQueryURL + $.param(restaurantParameters);
-    console.log(fourSquareRestaurantQueryURL);
 
     // PARKS QUERY URL
     var initialParksQueryURL = "https://api.foursquare.com/v2/venues/search?v=20180323&"
@@ -100,7 +97,6 @@ async function buildFourSquareQueryURL() {
     parksParameters.limit = 10; // 10 results returned by default
     parksParameters.sortByDistance = 1; // Boolean flag to sort the restuls by distance instead of relevance
     var fourSquareParksQueryURL = initialParksQueryURL + $.param(parksParameters);
-    console.log(fourSquareParksQueryURL);
 
     // RETURNING BOTH QUERY URLS
     var queryURLs = [fourSquareRestaurantQueryURL, fourSquareParksQueryURL];
@@ -133,7 +129,6 @@ async function fourSquareAJAXcall(event) {
         data: {},
         success: function(data) {
             // Code for handling API response
-            console.log(data);
 
             // DETERMINING HOW MANY RESTAURANTS TO DISPLAY
             // (Up to a maximum of 10)
@@ -230,6 +225,7 @@ async function fourSquareAJAXcall(event) {
         },
         error: function(jqXHR, textStatus, errorThrown) {
             // Code for handling errors in the Restaurants AJAX call
+
             console.log(jqXHR);
             console.log(textStatus);
             console.log(errorThrown);
@@ -257,7 +253,6 @@ async function fourSquareAJAXcall(event) {
         data: {},
         success: function(data) {
             // Code for handling API response
-            console.log(data);
 
             // DETERMINING HOW MANY PARKS TO DISPLAY
             // (Up to a maximum of 10)
@@ -313,6 +308,7 @@ async function fourSquareAJAXcall(event) {
         },
         error: function(jqXHR, textStatus, errorThrown) {
             // Code for handling errors in the AJAX calls
+            
             console.log(jqXHR);
             console.log(textStatus);
             console.log(errorThrown);
